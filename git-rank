@@ -21,18 +21,20 @@ dir=$(git rev-parse --git-dir 2>/dev/null)
 
 [ $# -ne 0 ] && usage
 
-rank=""
+rank="#"
+rpl="@"
 
-contributors=$(git log | egrep '^Author: ' | cut -d' ' -f2- | sed -r 's/ <.+>//g' | sort | uniq)
+contributors=$(git log | egrep '^Author: ' | cut -d' ' -f2- | sed -r 's/ <.+>//g' | tr " " "$rpl" | sort | uniq)
 for contributor in $contributors ; do
-    n=$(git log | egrep  "^Author: $contributor <" | wc -l)
-    rank=$(echo "$rank#$n:$contributor")
+    real_contributor=$(echo $contributor | tr "$rpl" " ")
+    n=$(git log | egrep  "^Author: $real_contributor <" | wc -l)
+    rank=$(echo "$rank$n:$contributor#")
 done
 
-for contributor in `echo $rank | sed -r 's/^.//' | tr "#" "\n" | sort -r` ; do
+for contributor in $(echo $rank | tr "#" "\n" | sed -r "s/^$//g" | sort -rn) ; do
     n=$(echo $contributor | cut -d':' -f1)
     if [ $n -gt 0 ] ; then
-	contributor=$(echo $contributor | cut -d':' -f2-)
+	contributor=$(echo $contributor | cut -d':' -f2- | tr "$rpl" " ")
 	contributor=$(git log | egrep "^Author: $contributor <" | head -1 | cut -d' ' -f2-)
 	printf "%5d %s\n" "$n" "$contributor"
     fi
