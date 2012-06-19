@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# git-flush -- free disk space
+# Copyright (C) 2012  Alan SCHNEIDER
+#                     <shk.schneider[at]gmail.com>
+# Copyright (C) 2011  Peter Eisentraut
+#                     <peter@eisentraut.org>
+#
+# From <https://github.com/jwiegley/git-scripts/blob/master/git-whoami>
+#
+# This program comes with ABSOLUTELY NO WARRANTY.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions.
+#
+
+[ -z "`which git`" ] && echo "git-flush: command 'git' not found" >&2 && exit 1
+
+function get_email() {
+    email=$(git config user.email)
+    [ -z "$email" ] && email="$EMAIL"
+    [ -z "$email" ] && email="$(id -nu)@$(hostname --fqdn)"
+    echo $email
+}
+
+function get_name() {
+    name=$(git config user.name)
+    [ -z "$name" ] && name=$(getent passwd $(id -un) | cut -d':' -f5 | cut -d',' -f1)
+    [ -z "$name" ] && name=$(whoami)
+    echo $name
+}
+
+: ${GIT_AUTHOR_NAME=$(get_name)}
+: ${GIT_COMMITTER_NAME=$(get_name)}
+: ${GIT_AUTHOR_EMAIL=$(get_email)}
+: ${GIT_COMMITTER_EMAIL=$(get_email)}
+
+author="$GIT_AUTHOR_NAME <$GIT_AUTHOR_EMAIL>"
+commit="$GIT_COMMITTER_NAME <$GIT_COMMITTER_EMAIL>"
+
+if [ "$author" = "$commit" ] ; then
+	echo "$author"
+else
+	echo "Author: $author"
+	echo "Commit: $commit"
+fi
+
+# EOF

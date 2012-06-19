@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# git-flush -- free disk space
+# Copyright (C) 2012  Alan SCHNEIDER
+#                     <shk.schneider[at]gmail.com>
+#
+# From <https://github.com/jwiegley/git-scripts/blob/master/git-flush>
+#
+# This program comes with ABSOLUTELY NO WARRANTY.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions.
+#
+
+[ -z "`which git`" ] && echo "git-flush: command 'git' not found" >&2 && exit 1
+
+dir=$(git rev-parse --git-dir 2>/dev/null)
+[ -z "$dir" ] && echo "git-flush: not a git repository" >&2 && exit 1
+
+rm -fr .git/refs/original
+rm -fr .git/refs/snapshots
+
+[ -f .git/info/refs ] && perl -i -ne 'print unless /refs\/original/;' .git/info/refs
+[ -f .git/packed-refs ] && perl -i -ne 'print unless /refs\/original/;' .git/packed-refs
+
+git reflog expire --expire=0 --all
+
+git stash clear
+
+git maxpack
+
+# EOF

@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# git-clean-reflog -- empty reflog
+# Copyright (C) 2012  Alan SCHNEIDER
+#                     <shk.schneider[at]gmail.com>
+#
+# From <https://github.com/jwiegley/git-scripts/blob/master/git-erase-reflog>
+#
+# This program comes with ABSOLUTELY NO WARRANTY.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions.
+#
+
+[ -z "`which git`" ] && echo "git-remove-tag: command 'git' not found" >&2 && exit 1
+
+dir=$(git rev-parse --git-dir 2>/dev/null)
+[ -z "$dir" ] && echo "git-remove-tag: not a git repository" >&2 && exit 1
+
+git reflog expire --expire=0 "$@"
+
+# EOF

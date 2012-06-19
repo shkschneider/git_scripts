@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# git-root -- prints git's top directory
+# Copyright (C) 2012  Alan SCHNEIDER
+#                     <shk.schneider[at]gmail.com>
+#
+# From <http://stackoverflow.com/questions/957928/is-there-a-way-to-get-the-git-root-directory-in-one-command/>
+#
+# This program comes with ABSOLUTELY NO WARRANTY.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions.
+#
+
+[ -z "`which git`" ] && echo "git-root: command 'git' not found" >&2 && exit 1
+
+dir=$(git rev-parse --git-dir 2>/dev/null)
+[ -z "$dir" ] && echo "git-root: not a git repository" >&2 && exit 1
+
+git rev-parse --show-toplevel
+
+# EOF

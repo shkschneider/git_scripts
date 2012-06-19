@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# git-push-all -- push all (remotly available) branches
+# Copyright (C) 2012  Alan SCHNEIDER
+#                     <shk.schneider[at]gmail.com>
+#
+# From <https://github.com/jwiegley/git-scripts/blob/master/git-push-all>
+#
+# This program comes with ABSOLUTELY NO WARRANTY.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions.
+#
+
+[ -z "`which git`" ] && echo "git-push-all: command 'git' not found" >&2 && exit 1
+
+dir=$(git rev-parse --git-dir 2>/dev/null)
+[ -z "$dir" ] && echo "git-push-all: not a git repository" >&2 && exit 1
+
+for remote in $(git remote) ; do
+    git push $remote
+done
+
+# EOF

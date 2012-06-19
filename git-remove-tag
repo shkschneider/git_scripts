@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# git-remove-tag -- remove remote git tag
+# Copyright (C) 2012  Alan SCHNEIDER
+#                     <shk.schneider[at]gmail.com>
+#
+# From <https://github.com/jwiegley/git-scripts/blob/master/git-delete-tag>
+#
+# This program comes with ABSOLUTELY NO WARRANTY.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions.
+#
+
+[ -z "`which git`" ] && echo "git-remove-tag: command 'git' not found" >&2 && exit 1
+
+function usage() {
+    echo "Usage: git-remove-tag <TAG>" >&2
+    exit 1
+}
+
+dir=$(git rev-parse --git-dir 2>/dev/null)
+[ -z "$dir" ] && echo "git-remove-tag: not a git repository" >&2 && exit 1
+
+[ $# -eq 0 ] && usage
+
+tag=$(git tag -l $1)
+[ -z "$tag" ] && echo "git-remove-tag: no such tag" >&2 && exit 1
+
+git tag -d $1
+git push origin :refs/tags/$1
+
+# EOF

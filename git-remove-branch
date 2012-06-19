@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# git-remove-branch -- remove remote git branch
+# Copyright (C) 2012  Alan SCHNEIDER
+#                     <shk.schneider[at]gmail.com>
+#
+# From <https://github.com/jwiegley/git-scripts/blob/master/git-delete-branch>
+#
+# This program comes with ABSOLUTELY NO WARRANTY.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions.
+#
+
+[ -z "`which git`" ] && echo "git-remove-branch: command 'git' not found" >&2 && exit 1
+
+function usage() {
+    echo "Usage: git-remove-branch <TAG>" >&2
+    exit 1
+}
+
+dir=$(git rev-parse --git-dir 2>/dev/null)
+[ -z "$dir" ] && echo "git-remove-branch: not a git repository" >&2 && exit 1
+
+[ $# -eq 0 ] && usage
+
+branch=$(git branch $1)
+[ -z "$branch" ] && echo "git-remove-branch: no such branch" >&2 && exit 1
+
+git branch -D $1
+git push origin :$1
+
+# EOF
