@@ -28,7 +28,6 @@
 #
 
 [ -z "`which git`" ] && echo "git-apply-url: command 'git' not found" >&2 && exit 1
-[ -z "`which curl`" ] && echo "git-apply-url: command 'curl' not found" >&2 && exit 1
 
 function usage() {
     echo "Usage: git-apply-url <URL>" >&2
@@ -40,6 +39,14 @@ dir=$(git rev-parse --git-dir 2>/dev/null)
 
 [ $# -ne 1 ] && usage
 
-curl -s "$1" | patch -p1
+if [ -x "$(which curl)" ] && [ -n "$(curl -V | grep https)" ] ; then
+    cmd="curl -s"
+elif [ -x "$(which wget)" ] ; then
+    cmd="wget -O - -q --no-check-certificate"
+else
+    echo "git-apply-url: could not found curl with https support nor wget" >&2 && exit 1
+fi
+
+$cmd "$1" | patch -p1
 
 # EOF
