@@ -404,7 +404,7 @@ case $1 in
     "-h"|"--help")
 	usage
 	echo "" >&2
-	echo "Feel free to visit <$URL>" >&2
+	echo "Feel free to visit <$url>" >&2
 	;;
     *)
 	usage
