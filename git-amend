@@ -36,6 +36,7 @@ case $1 in
 	[ -z "$new_email" ] && echo "Canceled" && exit 1
 	git commit --amend --author="$new_name <$new_email>"
 	echo "W: commiter's name is still unchanged for futur commits"
+        echo "I: use git config [--global] user.name/user.email for that"
 	;;
     "-a"|"--all")
 	echo "W: this script will affect ALL commits"
@@ -49,6 +50,8 @@ case $1 in
 	echo -n "New Author Email: "
 	read new_email
 	[ -z "$new_email" ] && echo "Canceled" && exit 1
+        rm -rf .git/refs/original > /dev/null
+        git fetch -a
         git filter-branch --env-filter '
                 OLD_EMAIL="$old_email"
                 CORRECT_NAME="$new_name"
