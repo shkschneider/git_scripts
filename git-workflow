@@ -10,7 +10,6 @@
 #
 
 [ -z "$(which git)" ] && echo "git-workflow: command 'git' not found" >&2 && exit 1
-url="http://www.shkschneider.me/blog/1815/git-workflow-my-rebase-model/"
 
 function usage() {
     echo "Usage: git-workflow <COMMAND [...]>" >&2
@@ -182,7 +181,6 @@ case $1 in
 	echo "    release-TAG [devel]     -- next release version (freeze)"
 	echo "    feature-ID-DESC [devel] -- new feature"
 	echo "    bugfix-ID-DESC [devel]  -- development bug fix"
-	echo "Feel free to visit <$url>"
 	;;
     "-w"|"--what")
         if [ -z "$(git branch | egrep "^..devel$")" ] ; then
@@ -403,8 +401,6 @@ case $1 in
 	;;
     "-h"|"--help")
 	usage
-	echo "" >&2
-	echo "Feel free to visit <$url>" >&2
 	;;
     *)
 	usage
