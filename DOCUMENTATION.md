@@ -53,6 +53,57 @@ Show (local) changes in Working Directory and Index.
 
 > git status --branch
 
+log
+---
+
+Prints the history.
+
+> git log --oneline --decorate [REFERENCE]
+
+> git log --all --oneline --decorate
+
+checkout
+--------
+
+Switchout branch. Also restores Working Directory path using ` -- <>`.
+
+> git checkout -b NEW --track PARENT
+
+remote
+------
+
+> git remote -v
+> git push REMOTE :REFERENCE # can remove a tag or branch from a remote
+
+branch
+------
+
+Manages branches. `-r` shows remotes.
+
+> git branch [-r] -vv
+
+> git branch --set-upstream-to=origin/BRANCH
+
+> git branch --unset-upstream
+
+> git branch -d BRANCH # avoid -D
+
+show
+----
+
+Shows a specific, recorded change.
+
+> git show HEAD
+
+diff
+----
+
+Shows current changes from Workspace to Index. Can you changes from Index to Staging Area using `--cached`.
+
+> git diff
+
+> git diff --cached # Index
+
 add
 ---
 
@@ -78,26 +129,6 @@ Moves a file inside the Index, keeping track in the form of `rm` and `add`.
 
 > git mv PATH PATH
 
-reset
------
-
-Restores HEAD somewhere else. Is destructive for the Working Directory.
-`--mixed` preserves Working Directory.
-`--hard` is destructive for both.
-
-> git reset # cleans Index
-
-> git reset --hard REFERENCE # destructive
-
-diff
-----
-
-Shows current changes from Workspace to Index. Can you changes from Index to Staging Area using `--cached`.
-
-> git diff
-
-> git diff --cached # Index
-
 commit
 ------
 
@@ -109,53 +140,7 @@ Records changes in the (local) history. From Index to Staging Area. Omits Worksp
 
 > git commit -m "MESSAGE"
 
-checkout
---------
-
-Switchout branch. Also restores Working Directory path using ` -- <>`.
-
-> git checkout -b NEW --track PARENT
-
-branch
-------
-
-Manages branches. `-r` shows remotes.
-
-> git branch [-r] -vv
-
-> git branch --set-upstream-to=origin/BRANCH
-
-> git branch --unset-upstream
-
-> git branch -d BRANCH # avoid -D
-
-show
-----
-
-Shows a specific, recorded change.
-
-> git show HEAD
-
-log
----
-
-Prints the history.
-
-> git log --oneline --decorate
-
-> git log --all --oneline --decorate
-
-apply
------
-
-Applies changes from a patch (`show`).
-
-cherry-pick
------------
-
-Picks a single commit and applies put it on the current HEAD (same commit???). Goes directly in Staging Area.
-
-> cherry-pick --no-commit HASH
+> git commit --amend # be sure to have a clean state
 
 revert
 ------
@@ -164,17 +149,23 @@ Commits the exact change's opposite of a specified commit, cancelling it.
 
 > git revert HEAD^
 
-rebase
-------
+cherry-pick
+-----------
 
-Moves the base of the current divergente history.
-Reapplies commits before current tip. Is preservative.
-`--interactive` allows to re-write (local) history but is destructive.
+Picks a single commit and put in in the current history at HEAD. Goes directly in Staging Area unless `--no-commit` is specified (which then changes the hash).
 
-blame
+> cherry-pick [--no-commit] HASH
+
+reset
 -----
 
-Shows per-line history of a file.
+Restores HEAD somewhere else. Is destructive for the Working Directory.
+`--mixed` preserves Working Directory.
+`--hard` is destructive for both.
+
+> git reset # cleans Index
+
+> git reset --hard REFERENCE # destructive
 
 merge
 -----
@@ -194,12 +185,68 @@ Offers different strategies:
 
 > git merge --abort
 
+rebase
+------
+
+Moves the base of the current divergente history.
+Reapplies commits before current tip. Is preservative.
+`--interactive` allows to re-write (local) history but is destructive.
+
+tag
+---
+
+Avoid same names for branches and tags. Prefixing tags with 'v' or keeping a semver format is recommended.
+
+> git tag --list
+
+> git tag --contains HASH
+
+> git tag [-f] TAG HASH
+
+> git tag [-f] -d TAG
+
+> git push --tags
+
 fetch
 -----
 
 Updates references from remote(s).
 
 > git fetch [--all] --tags --pruned
+
+pull
+----
+
+Gets references updates from remote and moves current HEAD. Merges can occur.
+
+> git pull [REMOTE BRANCH]
+
+push
+----
+
+Publishes / distributes local changes.
+
+> git push -u [REMOTE BRANCH] [--tags]
+
+apply
+-----
+
+Applies changes from a patch (`show`).
+
+blame
+-----
+
+Shows per-line history of a file.
+
+reflog
+------
+
+History of actions and HEADs.
+Usefull to cancel some destructive action that put you out of the desired history path.
+
+> git reflog
+
+Just `reset --hard HEAD@{N}`.
 
 stash
 -----
@@ -217,44 +264,6 @@ Only command to save off-record changes. Puts all Working Directory and Index ch
 > git stash drop stash@{N}
 
 > git stash clear
-
-reflog
-------
-
-History of actions and HEADs.
-Usefull to cancel some destructive action that put you out of the desired history path.
-
-> git reflog
-
-Just `reset --hard HEAD@{N}`.
-
-push
-----
-
-Publishes / distributes local changes.
-
-> git push -u [REMOTE BRANCH]
-
-tag
----
-
-Avoid same names for branches and tags. Prefixing tags with 'v' or keeping a semver format is recommended.
-
-> git tag --list
-
-> git tag --contains HASH
-
-> git tag [-f] TAG [COMMIT]
-
-> git tag [-f] -d TAG
-
-> git push --tags
-
-remote
-------
-
-> git remote -v
-> git push REMOTE :REFERENCE # can remove a tag or branch from a remote
 
 Tips And Tricks
 ===============
