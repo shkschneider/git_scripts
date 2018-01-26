@@ -285,12 +285,12 @@ Merging
 -------
 
 * When the feature completes, it `rebase` off `dev` and `dev` `merge` the feature _seamlessly_.
-* When ready for production, `master` `merge` `dev` _seamlessly_. 
-* A tag is then applied and `push` to `origin`.
+
+> git rebase dev
 
 > git checkout origin/dev
 
-> git fetch origin --prune && git rebase origin/dev # git pull
+> git fetch origin --prune && git merge --no-ff origin/dev # git pull
 
 > git merge --no-ff feature
 
@@ -298,33 +298,21 @@ Merging
 
 > git branch -d feature
 
-_or_
+* When ready for production, `master` `merge` `dev` _seamlessly_. 
 
-> update = "!f() { git fetch $1 --prune ; git merge --ff-only $1/$2 || git rebase --preserve-merges $1/$2; }; f"
-
-> git update origin dev
-
-> git merge --no-ff feature && git branch -d feature
-
-> git push origin dev
-
-(`rebase` ensures the code you're about to commit is upstream-compatible ; conflicts occurs on your local branch, up to you to fix.)
+> git rebase master
 
 > git checkout master
 
-> git fetch origin --prune && git rebase origin/master # git pull
+> git fetch origin --prune && git merge --no-ff origin/master # git pull
 
 > git merge --no-ff dev
+
+* A tag is then applied and `push` to `origin`.
 
 > git tag 1.0.0
 
 > git push --tags origin master
-
-_or_
-
-> publish = "!f() { git merge --ff-only origin/dev && git tag $1 && git push --tags origin master; }; f"
-
-> git update origin master && git publish 1.0.0
 
 Deployment
 ----------
