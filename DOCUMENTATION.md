@@ -172,7 +172,7 @@ merge
 
 Joints histories. (I dislike merging to a tracking branch. It should merge child branches.)
 In non-fast-forward mode, creates a merge commit that resolves both HEADs.
-Fast-forward mode is like a `rebase`.
+Fast-forward mode (enforced by `--ff-only`) is like a `rebase`.
 
 > git merge --no-ff BRANCH
 
@@ -277,14 +277,54 @@ Branches
 * `dev` (child of `master`) is a work-in-progress codebase, with finished features. Bugfixes might happen directly on it.
 * Feature branches (children of `dev`) are topic focused and unstable.
 
+> git checkout -b dev master
+
+> git checkout -b feature dev
+
 Merging
 -------
 
-* When the feature completes, it `rebase` off `dev` and `dev` `merge` the feature.
-* When ready for production, `dev` `rebase` `master` and `master` `merge` `dev`. 
+* When the feature completes, it `rebase` off `dev` and `dev` `merge` the feature _seamlessly_.
+* When ready for production, `master` `merge` `dev` _seamlessly_. 
 * A tag is then applied and `push` to `origin`.
 
-(`rebase` ensures the code you're about to commit is upstream-compatible. `merge` is then effort-less and conflicts occurs on your local branch, up to you to fix.)
+> git checkout origin/dev
+
+> git fetch origin --prune && git rebase origin/dev # git pull
+
+> git merge --no-ff feature
+
+> git push origin dev
+
+> git branch -d feature
+
+_or_
+
+> update = "!f() { git fetch $1 --prune ; git merge --ff-only $1/$2 || git rebase --preserve-merges $1/$2; }; f"
+
+> git update origin dev
+
+> git merge --no-ff feature && git branch -d feature
+
+> git push origin dev
+
+(`rebase` ensures the code you're about to commit is upstream-compatible ; conflicts occurs on your local branch, up to you to fix.)
+
+> git checkout master
+
+> git fetch origin --prune && git rebase origin/master # git pull
+
+> git merge --no-ff dev
+
+> git tag 1.0.0
+
+> git push --tags origin master
+
+_or_
+
+> publish = "!f() { git merge --ff-only origin/dev && git tag $1 && git push --tags origin master; }; f"
+
+> git update origin master && git publish 1.0.0
 
 Deployment
 ----------
