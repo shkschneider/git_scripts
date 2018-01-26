@@ -277,20 +277,20 @@ Branches
 * `dev` (child of `master`) is a work-in-progress codebase, with finished features. Bugfixes might happen directly on it.
 * Feature branches (children of `dev`) are topic focused and unstable.
 
-> git checkout -b dev master
+> git checkout -b dev --track [origin/]master
 
-> git checkout -b feature dev
+> git checkout -b feature --track [origin/]dev
 
 Merging
 -------
 
 * When the feature completes, it `rebase` off `dev` and `dev` `merge` the feature _seamlessly_.
 
-> git rebase dev
+> git fetch --prune origin
 
-> git checkout origin/dev
+> git rebase origin/dev
 
-> git fetch origin --prune && git merge --no-ff origin/dev # git pull
+> git checkout dev
 
 > git merge --no-ff feature
 
@@ -300,11 +300,11 @@ Merging
 
 * When ready for production, `master` `merge` `dev` _seamlessly_. 
 
-> git rebase master
+> git fetch --prune origin
+
+> git rebase origin/master
 
 > git checkout master
-
-> git fetch origin --prune && git merge --no-ff origin/master # git pull
 
 > git merge --no-ff dev
 
@@ -317,9 +317,9 @@ Merging
 Deployment
 ----------
 
-> git reset --hard $(git reflog | tail -1 | cut -c1-7)
+> git fetch --tags --prune origin
 
-> git fetch --tags --prune
+> git reset --hard HEAD
 
 > git rev-parse TAG && git reset --hard TAG || exit 1
 
