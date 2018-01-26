@@ -270,15 +270,30 @@ Only command to save off-record changes. Puts all Working Directory and Index ch
 Workflow
 ========
 
+Branches
+--------
+
 * `master` is stable and represents production.
 * `dev` (child of `master`) is a work-in-progress codebase, with finished features. Bugfixes might happen directly on it.
 * Feature branches (children of `dev`) are topic focused and unstable.
+
+Merging
+-------
 
 * When the feature completes, it `rebase` off `dev` and `dev` `merge` the feature.
 * When ready for production, `dev` `rebase` `master` and `master` `merge` `dev`. 
 * A tag is then applied and `push` to `origin`.
 
 (`rebase` ensures the code you're about to commit is upstream-compatible. `merge` is then effort-less and conflicts occurs on your local branch, up to you to fix.)
+
+Deployment
+----------
+
+> git reset --hard $(git reflog | tail -1 | cut -c1-7)
+
+> git fetch --tags --prune
+
+> git rev-parse TAG && git reset --hard TAG || exit 1
 
 Tips And Tricks
 ===============
