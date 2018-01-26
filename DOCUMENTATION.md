@@ -170,12 +170,13 @@ Restores HEAD somewhere else. Is destructive for the Working Directory.
 merge
 -----
 
-Joints histories. (Try to pull into rather than onto.)
+Joints histories. (I dislike merging to a tracking branch. It should merge child branches.)
 In non-fast-forward mode, creates a merge commit that resolves both HEADs.
+Fast-forward mode is like a `rebase`.
 
 > git merge --no-ff BRANCH
 
-Clean your Working Directory and Index before merging.
+(Clean your Working Directory and Index before merging.)
 
 Offers different strategies:
 
@@ -265,6 +266,19 @@ Only command to save off-record changes. Puts all Working Directory and Index ch
 > git stash drop stash@{N}
 
 > git stash clear
+
+Workflow
+========
+
+* `master` is stable and represents production.
+* `dev` (child of `master`) is a work-in-progress codebase, with finished features. Bugfixes might happen directly on it.
+* Feature branches (children of `dev`) are topic focused and unstable.
+
+* When the feature completes, it `rebase` off `dev` and `dev` `merge` the feature.
+* When ready for production, `dev` `rebase` `master` and `master` `merge` `dev`. 
+* A tag is then applied and `push` to `origin`.
+
+(`rebase` ensures the code you're about to commit is upstream-compatible. `merge` is then effort-less and conflicts occurs on your local branch, up to you to fix.)
 
 Tips And Tricks
 ===============
