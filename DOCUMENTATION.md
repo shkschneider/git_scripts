@@ -14,14 +14,14 @@ Characteristics
 
 * Git handles patches and manages them via references (a pointer to a change within the history). Git then makes you work with snapshots of the code.
 * Git features branches, which are alternate history paths but with common ancestry history.
-* Almost all operations are done locally. You only pusblish/share the history you got with a remote. A remote is a central point of collect of diffs.
+* Almost all operations are done locally. You only publish/share the history you got with a remote. A remote is a central point of collect of diffs.
 
 ```
- local                                             |   .git/remote
-[Wording Directory] => [Index] <=> [Staging Area] <=> [Repository]
- status                         |   fetch          |
- add, rm, mv                    |   pull           |
- commit
+                                  |  local            |  remote
+[Stash] | [Workspace] => [Index] <=> [Staging Area] <=> [Repository]
+           status                 |   fetch          |
+           add, rm, mv            |   pull           |
+           commit
 ```
 
 Commands
@@ -60,6 +60,8 @@ Puts changes from the Working Directory into the Index.
 
 > git add PATH
 
+> git add -u # updated
+
 rm
 --
 
@@ -90,7 +92,7 @@ Restores HEAD somewhere else. Is destructive for the Working Directory.
 diff
 ----
 
-Shows current changes from Wording Directory to Index. Can you changes from Index to Staging Area using `--cached`.
+Shows current changes from Workspace to Index. Can you changes from Index to Staging Area using `--cached`.
 
 > git diff
 
@@ -99,7 +101,7 @@ Shows current changes from Wording Directory to Index. Can you changes from Inde
 commit
 ------
 
-Records changes in the (local) history. From Index to Staging Area. Omits Wording Directory.
+Records changes in the (local) history. From Index to Staging Area. Omits Workspace.
 `-a` adds all files known to Index.
 `--ammend` rewrite the last commit. Destructive as it replaces the HEAD commit with a new one.
 
@@ -117,9 +119,9 @@ Switchout branch. Also restores Working Directory path using ` -- <>`.
 branch
 ------
 
-Manages branches.
+Manages branches. `-r` shows remotes.
 
-> git branch -avv
+> git branch [-r] -vv
 
 > git branch --set-upstream-to=origin/BRANCH
 
@@ -224,7 +226,14 @@ Usefull to cancel some destructive action that put you out of the desired histor
 
 > git reflog
 
-Just `reset --hard HASH`.
+Just `reset --hard HEAD@{N}`.
+
+push
+----
+
+Publishes / distributes local changes.
+
+> git push -u [REMOTE BRANCH]
 
 tag
 ---
@@ -289,9 +298,9 @@ Under The Hood
 ==============
 
 > cat .git/HEAD
->
+
 > ls -l .git/refs/heads/
->
+
 > cat .git/refs/heads/master
 
 
