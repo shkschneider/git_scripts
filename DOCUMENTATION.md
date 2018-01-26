@@ -279,6 +279,8 @@ Tips And Tricks
 
 > git reset--hard HEAD@{1} # undo
 
+> git push origin :REFERENCE # pushes nothing into X (remote deletes)
+
 GitIgnore
 =========
 
