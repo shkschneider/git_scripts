@@ -29,6 +29,7 @@ init
 Makes the working tree a (local) Repository. `--bare` makes it a centralized Repository (used on servers).
 
 > git init
+
 > git init --bare
 
 clone
@@ -38,6 +39,7 @@ Gets a Repository client into a (new) Working Directory, referencing a remote (d
 Points to `origin/HEAD` by default, or specify `--branch BRANCH`.
 
 > git clone REPOSITORY [PATH]
+
 > git clone REPOSITORY -b BRANCH [PATH]
 
 status
@@ -60,6 +62,7 @@ rm
 Removes a known (unless `--force` is specified) path from the local Repository. `--cached` removes from the Index.
 
 > git rm [-f] PATH
+
 > git rm [-f] --cached PATH
 
 mv
@@ -77,6 +80,7 @@ Restores HEAD somewhere else. Is destructive for the Working Directory.
 `--hard` is destructive for both.
 
 > git reset # cleans Index
+
 > git reset --hard REFERENCE # destructive
 
 diff
@@ -85,6 +89,7 @@ diff
 Shows current changes from Wording Directory to Index. Can you changes from Index to Staging Area using `--cached`.
 
 > git diff
+
 > git diff --cached # Index
 
 commit
@@ -95,6 +100,7 @@ Records changes in the (local) history. From Index to Staging Area. Omits Wordin
 `--ammend` rewrite the last commit. Destructive as it replaces the HEAD commit with a new one.
 
 > git commit -a
+
 > git commit -m "MESSAGE"
 
 checkout
@@ -110,8 +116,11 @@ branch
 Manages branches.
 
 > git branch -avv
+
 > git branch --set-upstream-to=origin/BRANCH
+
 > git branch --unset-upstream
+
 > git branch -d BRANCH # avoid -D
 
 show
@@ -127,6 +136,7 @@ log
 Prints the history.
 
 > git log --oneline --decorate
+
 > git log --all --oneline --decorate
 
 apply
@@ -173,7 +183,9 @@ Clean your Working Directory and Index before merging.
 Offers different strategies:
 
 > git merge -s ours ...
+
 > git merge -X theirs ...
+
 > git merge --abort
 
 fetch
@@ -189,10 +201,15 @@ stash
 Only command to save off-record changes. Puts all Working Directory and Index changes out of the current working tree.
 
 > git stash
+
 > git stash list
+
 > git stash show stash@{N}
+
 > git stash apply stash@{N}
+
 > git stash drop stash@{N}
+
 > git stash clear
 
 reflog
@@ -211,9 +228,13 @@ tag
 Avoid same names for branches and tags. Prefixing tags with 'v' or keeping a semver format is recommended.
 
 > git tag --list
+
 > git tag --contains HASH
+
 > git tag [-f] TAG [COMMIT]
+
 > git tag [-f] -d TAG
+
 > git push --tags
 
 remote
@@ -226,13 +247,21 @@ Tips And Tricks
 ===============
 
 > git rev-parse --abbrev-ref @{u}  # shows tracking branch
+
 > git add --update && git ls-files --deleted -z | xargs -0 git rm 2>/dev/null # removes and adds
+
 > git log --format='%aN <%cE>' | sort -u # authors
+
 > cat .git/config
+
 > reset --mixed # unadds
+
 > git config pull.default upstream
+
 > git config push.default tracking
+
 > git rev-list $(git rev-parse --abbrev-ref @{u})..HEAD # commits ahead
+
 > git rev-list HEAD..$(git rev-parse --abbrev-ref @{u}) # commits behind
 
 GitIgnore
@@ -245,5 +274,5 @@ GitIgnore
 > **/filename
 > !dir/filename
 
-git-scm.com/docs
-github.com/git-game/git-game
+* git-scm.com/docs
+* github.com/git-game/git-game
