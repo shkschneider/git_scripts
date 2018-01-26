@@ -19,9 +19,9 @@ Characteristics
 ```
                                   |  local            |  remote
 [Stash] | [Workspace] => [Index] <=> [Staging Area] <=> [Repository]
-           status                 |   fetch          |
-           add, rm, mv            |   pull           |
-           commit
+        |  status                 |   fetch          |
+        |  add, rm, mv            |   pull           |
+        |  commit                 |   merge          |  push
 ```
 
 Commands
@@ -190,6 +190,9 @@ rebase
 
 Moves the base of the current divergente history.
 Reapplies commits before current tip. Is preservative.
+
+> git fetch && git rebase REMOTE/BRANCH
+
 `--interactive` allows to re-write (local) history but is destructive.
 
 tag
@@ -217,9 +220,7 @@ Updates references from remote(s).
 pull
 ----
 
-Gets references updates from remote and moves current HEAD. Merges can occur.
-
-> git pull [REMOTE BRANCH]
+_I dislike `pull`. Use `fetch` and `rebase`._
 
 push
 ----
@@ -311,6 +312,8 @@ Under The Hood
 > cat .git/HEAD
 
 > ls -l .git/refs/heads/
+
+> ls -l .git/refs/remotes/
 
 > cat .git/refs/heads/master
 
