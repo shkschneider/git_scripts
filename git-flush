@@ -16,8 +16,8 @@
 dir=$(git rev-parse --git-dir 2>/dev/null)
 [ -z "$dir" ] && echo "git-flush: not a git repository" >&2 && exit 1
 
-rm -fr .git/refs/original
-rm -fr .git/refs/snapshots
+rm -rf .git/refs/original
+rm -rf .git/refs/snapshots
 
 [ -f .git/info/refs ] && perl -i -ne 'print unless /refs\/original/;' .git/info/refs
 [ -f .git/packed-refs ] && perl -i -ne 'print unless /refs\/original/;' .git/packed-refs
@@ -25,7 +25,5 @@ rm -fr .git/refs/snapshots
 git reflog expire --expire=0 --all
 
 git stash clear
-
-git maxpack
 
 # EOF
