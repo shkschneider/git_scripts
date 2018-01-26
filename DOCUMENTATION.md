@@ -323,6 +323,10 @@ Deployment
 
 > git rev-parse TAG && git reset --hard TAG || exit 1
 
+> ...
+
+> git rebase
+
 Tips And Tricks
 ===============
 
