@@ -264,6 +264,8 @@ Tips And Tricks
 
 > git rev-list HEAD..$(git rev-parse --abbrev-ref @{u}) # commits behind
 
+> git reset--hard HEAD@{1} # undo
+
 GitIgnore
 =========
 
