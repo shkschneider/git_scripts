@@ -208,6 +208,8 @@ Just `reset --hard HASH`.
 tag
 ---
 
+Avoid same names for branches and tags. Prefixing tags with 'v' or keeping a semver format is recommended.
+
 > git tag --list
 > git tag --contains HASH
 > git tag [-f] TAG [COMMIT]
