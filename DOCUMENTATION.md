@@ -5,6 +5,10 @@ Definition
 
 > (Basically only adds changes and avoids removing information.)
 
+* Released 7 april 2005
+* GNU GPL v2/v2.1
+* Original author: Linus Torvalds
+
 Characteristics
 ===============
 
@@ -281,8 +285,20 @@ GitIgnore
 >
 > !dir/filename
 
+Under The Hood
+==============
+
+> cat .git/HEAD
+>
+> ls -l .git/refs/heads/
+>
+> cat .git/refs/heads/master
+
+
 Links
 =====
 
 * [git-scm.com/docs](git-scm.com/docs)
 * [github.com/git-game/git-game](github.com/git-game/git-game)
+* [https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
+* [semver.org](semver.org)
