@@ -270,11 +270,19 @@ GitIgnore
 =========
 
 > filename
+>
 > filename.*
+>
 > dir/filename
+>
 > */filename
+>
 > **/filename
+>
 > !dir/filename
 
-* git-scm.com/docs
-* github.com/git-game/git-game
+Links
+=====
+
+* [git-scm.com/docs](git-scm.com/docs)
+* [github.com/git-game/git-game](github.com/git-game/git-game)
