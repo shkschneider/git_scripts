@@ -17,11 +17,11 @@ Characteristics
 * Almost all operations are done locally. You only publish/share the history you got with a remote. A remote is a central point of collect of diffs.
 
 ```
-                                  |  local            |  remote
-[Stash] | [Workspace] => [Index] <=> [Staging Area] <=> [Repository]
-        |  status                 |   fetch          |
-        |  add, rm, mv            |   pull           |
-        |  commit                 |   merge          |  push
+                                  |  local      |  remote
+[Stash] | [Workspace] => [Index] <=> [Staging] <=> [Repository]
+        |  status                 |   fetch     |
+        |  add, rm, mv            |   pull      |
+        |  commit                 |   merge     |  push
 ```
 
 Commands
@@ -32,14 +32,12 @@ init
 
 Makes the working tree a (local) Repository. `--bare` makes it a centralized Repository (used on servers).
 
-> git init
-
-> git init --bare
+> git init [--bare]
 
 clone
 -----
 
-Gets a Repository client into a (new) Working Directory, referencing a remote (defaults to `origin`) from another (local) Repository or a (centralized) server.
+Gets a Repository client into a (new) Workspace, referencing a remote (defaults to `origin`) from another (local) Repository or a (centralized) server.
 Points to `origin/HEAD` by default, or specify `--branch BRANCH`.
 
 > git clone REPOSITORY [PATH]
@@ -49,7 +47,7 @@ Points to `origin/HEAD` by default, or specify `--branch BRANCH`.
 status
 ------
 
-Show (local) changes in Working Directory and Index.
+Show (local) changes in Workspace and Index.
 
 > git status --branch
 
@@ -65,7 +63,7 @@ Prints the history.
 checkout
 --------
 
-Switchout branch. Also restores Working Directory path using ` -- <>`.
+Switchout branch. Also restores Workspace path using ` -- <>`.
 
 > git checkout -b NEW --track PARENT
 
@@ -98,7 +96,7 @@ Shows a specific, recorded change.
 diff
 ----
 
-Shows current changes from Workspace to Index. Can you changes from Index to Staging Area using `--cached`.
+Shows current changes from Workspace to Index. Can you changes from Index to Staging using `--cached`.
 
 > git diff
 
@@ -107,7 +105,7 @@ Shows current changes from Workspace to Index. Can you changes from Index to Sta
 add
 ---
 
-Puts changes from the Working Directory into the Index.
+Puts changes from the Workspace into the Index.
 
 > git add PATH
 
@@ -132,7 +130,7 @@ Moves a file inside the Index, keeping track in the form of `rm` and `add`.
 commit
 ------
 
-Records changes in the (local) history. From Index to Staging Area. Omits Workspace.
+Records changes in the (local) history. From Index to Staging. Omits Workspace.
 `-a` adds all files known to Index.
 `--ammend` rewrite the last commit. Destructive as it replaces the HEAD commit with a new one.
 
@@ -152,15 +150,15 @@ Commits the exact change's opposite of a specified commit, cancelling it.
 cherry-pick
 -----------
 
-Picks a single commit and put in in the current history at HEAD. Goes directly in Staging Area unless `--no-commit` is specified (which then changes the hash).
+Picks a single commit and put in in the current history at HEAD. Goes directly in Staging unless `--no-commit` is specified (which then changes the hash).
 
 > cherry-pick [--no-commit] HASH
 
 reset
 -----
 
-Restores HEAD somewhere else. Is destructive for the Working Directory.
-`--mixed` preserves Working Directory.
+Restores HEAD somewhere else. Is destructive for the Workspace.
+`--mixed` preserves Workspace.
 `--hard` is destructive for both.
 
 > git reset # cleans Index
@@ -176,7 +174,7 @@ Fast-forward mode (enforced by `--ff-only`) is like a `rebase`.
 
 > git merge --no-ff BRANCH
 
-(Clean your Working Directory and Index before merging.)
+(Clean your Workspace and Index before merging.)
 
 Offers different strategies:
 
@@ -253,7 +251,7 @@ Just `reset --hard HEAD@{N}`.
 stash
 -----
 
-Only command to save off-record changes. Puts all Working Directory and Index changes out of the current working tree.
+Only command to save off-record changes. Puts all Workspace and Index changes out of the current working tree.
 
 > git stash
 
