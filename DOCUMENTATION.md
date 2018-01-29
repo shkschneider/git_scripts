@@ -13,8 +13,8 @@ Characteristics
 ===============
 
 * Git handles patches and manages them via references (a pointer to a change within the history). Git then makes you work with snapshots of the code.
-* Git features branches, which are alternate history paths but with common ancestry history.
-* Almost all operations are done locally. You only publish/share the history you got with a remote. A remote is a central point of collect of diffs.
+* Git features branches, which are alternate history paths but with common ancestry.
+* Almost all operations are done locally. You only share the history you got with a remote. A remote is a central point of collect of changes.
 
 ```
                                   |  local      |  remote
@@ -23,6 +23,9 @@ Characteristics
         |  add, rm, mv            |   pull      |
         |  commit                 |   merge     |  push
 ```
+
+A `HEAD` is a tip reference in the history. `origin` has one, branches have one, Workspace has one.
+`HEAD^` references `HEAD` - 1. `HEAD~42` references `HEAD` - 42.
 
 Commands
 ========
