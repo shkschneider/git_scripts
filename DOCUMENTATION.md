@@ -57,7 +57,13 @@ log
 
 Prints the history.
 
-> git log [--all] --oneline --decorate
+> git log [--all] --oneline --decorate [REFENRECE]
+
+You can reference a point or a range:
+
+> git log HEAD
+
+> git log 1.0.0..2.0.0 # REF1..REF2, old to new
 
 checkout
 --------
