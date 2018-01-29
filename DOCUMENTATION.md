@@ -43,9 +43,7 @@ clone
 Gets a Repository client into a (new) Workspace, referencing a remote (defaults to `origin`) from another (local) Repository or a (centralized) server.
 Points to `origin/HEAD` by default, or specify `--branch BRANCH`.
 
-> git clone REPOSITORY [PATH]
-
-> git clone REPOSITORY -b BRANCH [PATH]
+> git clone REPOSITORY [--branch BRANCH] [PATH]
 
 status
 ------
@@ -59,9 +57,7 @@ log
 
 Prints the history.
 
-> git log --oneline --decorate [REFERENCE]
-
-> git log --all --oneline --decorate
+> git log [--all] --oneline --decorate
 
 checkout
 --------
@@ -70,10 +66,13 @@ Switchout branch. Also restores Workspace path using ` -- <>`.
 
 > git checkout -b NEW --track PARENT
 
+> git checkout -- PATH # restores
+
 remote
 ------
 
 > git remote -v
+
 > git push REMOTE :REFERENCE # can remove a tag or branch from a remote
 
 branch
@@ -83,7 +82,7 @@ Manages branches. `-r` shows remotes.
 
 > git branch [-r] -vv
 
-> git branch --set-upstream-to=origin/BRANCH
+> git branch --set-upstream-to=REMOTE/BRANCH
 
 > git branch --unset-upstream
 
@@ -99,7 +98,7 @@ Shows a specific, recorded change.
 diff
 ----
 
-Shows current changes from Workspace to Index. Can you changes from Index to Staging using `--cached`.
+Shows current changes from Workspace to Index. Shows from Index to Staging using `--cached`.
 
 > git diff
 
@@ -112,16 +111,16 @@ Puts changes from the Workspace into the Index.
 
 > git add PATH
 
-> git add -u # updated
+> git add -u # tracked, updated
 
 rm
 --
 
-Removes a known (unless `--force` is specified) path from the local Repository. `--cached` removes from the Index.
+Removes a known path from the local Repository (`-r` for recursive). To change the index, specify `--cached`.
 
-> git rm [-f] PATH
+> git rm [-r] PATH
 
-> git rm [-f] --cached PATH
+> git rm [-r] --cached PATH
 
 mv
 --
@@ -146,21 +145,21 @@ Records changes in the (local) history. From Index to Staging. Omits Workspace.
 revert
 ------
 
-Commits the exact change's opposite of a specified commit, cancelling it.
+Commits the exact change's opposite of a specified commit, cancelling it. This is usefull when reverting a change that got shared, since it is not destructive, only adds history (in oposition to `reset`).
 
 > git revert HEAD^
 
 cherry-pick
 -----------
 
-Picks a single commit and put in in the current history at HEAD. Goes directly in Staging unless `--no-commit` is specified (which then changes the hash).
+Picks a single commit and put in in the current history at HEAD. Goes directly in Staging unless `--no-commit` is specified (which then will change its hash).
 
-> cherry-pick [--no-commit] HASH
+> git cherry-pick [--no-commit] HASH
 
 reset
 -----
 
-Restores HEAD somewhere else. Is destructive for the Workspace.
+Restores HEAD somewhere else. Can be destructive for the Workspace.
 `--mixed` preserves Workspace.
 `--hard` is destructive for both.
 
@@ -222,7 +221,7 @@ Updates references from remote(s).
 pull
 ----
 
-_I dislike `pull`. Use `fetch` and `rebase`._
+_I dislike `pull`. Use `fetch` and `rebase`/`merge --ff-only`._
 
 push
 ----
@@ -234,12 +233,16 @@ Publishes / distributes local changes.
 apply
 -----
 
-Applies changes from a patch (`show`).
+Applies changes from a patch (`show`). Goes into the Index.
+
+> git apply PATH
 
 blame
 -----
 
 Shows per-line history of a file.
+
+> git blame [REFERENCE] PATH
 
 reflog
 ------
@@ -278,9 +281,9 @@ Branches
 * `dev` (child of `master`) is a work-in-progress codebase, with finished features. Bugfixes might happen directly on it.
 * Feature branches (children of `dev`) are topic focused and unstable.
 
-> git checkout -b dev --track [origin/]master
+> git checkout -b dev --track [REMOTE/]master
 
-> git checkout -b feature --track [origin/]dev
+> git checkout -b feature --track [REMOTE/]dev
 
 Merging
 -------
@@ -339,7 +342,7 @@ Tips And Tricks
 
 > cat .git/config
 
-> reset --mixed # unadds
+> git reset --mixed # unadds
 
 > git config pull.default upstream
 
