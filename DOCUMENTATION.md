@@ -227,7 +227,11 @@ Updates references from remote(s).
 pull
 ----
 
-_I dislike `pull`. Use `fetch` and `rebase`/`merge --ff-only`._
+Gets changes from REMOTE. _I dislike its usage without rebase!_ Also does a `fetch` beforehand.
+
+> git pull --rebase REMOTE BANCH
+
+_Use this when getting changes from REMOTE._
 
 push
 ----
@@ -294,13 +298,11 @@ Branches
 Merging
 -------
 
-* When the feature completes, it `rebase` off `dev` and `dev` `merge` the feature _seamlessly_.
-
-> git fetch --prune origin
-
-> git rebase origin/dev
+* When the feature completes, `dev` is updated and `merge` the feature.
 
 > git checkout dev
+
+> git pull --rebase origin dev
 
 > git merge --no-ff feature
 
@@ -310,11 +312,9 @@ Merging
 
 * When ready for production, `master` `merge` `dev` _seamlessly_. 
 
-> git fetch --prune origin
-
-> git rebase origin/master
-
 > git checkout master
+
+> git pull --rebase origin master
 
 > git merge --no-ff dev
 
