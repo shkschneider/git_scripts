@@ -17,11 +17,11 @@ Characteristics
 * Almost all operations are done locally. You only share the history you got with a remote. A remote is a central point of collect of changes.
 
 ```
-                                  |  local      |  remote
+                                  |   local     |   remote
 [Stash] | [Workspace] => [Index] <=> [Staging] <=> [Repository]
         |  status                 |   fetch     |
         |  add, rm, mv            |   pull      |
-        |  commit                 |   merge     |  push
+        |  commit                 |   merge     |   push
 ```
 
 A `HEAD` is a tip reference in the history. `origin` has one, branches have one, Workspace has one.
