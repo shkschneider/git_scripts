@@ -119,6 +119,8 @@ Puts changes from the Workspace into the Index.
 
 > git add -u # tracked, updated
 
+> git add --patch # choose block to commit
+
 rm
 --
 
@@ -310,7 +312,7 @@ Merging
 
 > git branch -d feature
 
-* When ready for production, `master` `merge` `dev` _seamlessly_. 
+* When ready for production, `master` `merge` `dev` _seamlessly_.
 
 > git checkout master
 
