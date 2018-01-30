@@ -5,9 +5,9 @@ Definition
 
 > (Basically only adds changes and avoids removing information.)
 
-* Released 7 april 2005
+* Released april 7th, 2005
 * GNU GPL v2/v2.1
-* Original author: Linus Torvalds
+* Original work by Linus Torvalds
 
 Characteristics
 ===============
