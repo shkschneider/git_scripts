@@ -300,7 +300,7 @@ Branches
 Merging
 -------
 
-* When the feature completes, `dev` is updated and `merge` the feature.
+* When the feature completes, `dev` is updated and `merge` the feature (assuming the feature is rebased on `dev`).
 
 > git checkout dev
 
@@ -394,7 +394,8 @@ Under The Hood
 Links
 =====
 
-* [git-scm.com/docs](git-scm.com/docs)
-* [github.com/git-game/git-game](github.com/git-game/git-game)
+* [https://git-scm.com/docs](https://git-scm.com/docs)
+* [https://github.com/git-game/git-game](https://github.com/git-game/git-game)
 * [https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
-* [semver.org](semver.org)
+* [https://semver.org](https://semver.org)
+* [https://learngitbranching.js.org](https://learngitbranching.js.org)
