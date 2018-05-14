@@ -399,3 +399,4 @@ Links
 * [https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
 * [https://semver.org](https://semver.org)
 * [https://learngitbranching.js.org](https://learngitbranching.js.org)
+* [https://ohshitgit.com](https://ohshitgit.com)
